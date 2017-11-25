@@ -1,4 +1,4 @@
-/build
+build
 /.idea
 /.gradle
 /bin/
@@ -7,3 +7,4 @@ node_modules
 /out
 /*.iml
 /mods
+*.class

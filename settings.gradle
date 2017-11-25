@@ -1,0 +1,3 @@
+
+include 'stresser.cli'
+include 'stresser.generator.cpu'

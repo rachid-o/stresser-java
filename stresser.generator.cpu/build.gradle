@@ -1,0 +1,7 @@
+plugins {
+    id 'java-library'
+}
+
+ext.moduleName = 'stresser.generator.cpu'
+
+//sourceSets.main.java.srcDirs = ['src']
