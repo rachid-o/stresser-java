@@ -1,0 +1,9 @@
+/build
+/.idea
+/.gradle
+/bin/
+node_modules
+/target
+/out
+/*.iml
+/mods
