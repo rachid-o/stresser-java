@@ -8,6 +8,5 @@ subprojects {
         repositories {
             jcenter()
         }
-        sourceSets.main.java.srcDirs = ['src']
     }
 }
