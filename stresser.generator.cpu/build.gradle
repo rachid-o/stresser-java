@@ -2,6 +2,4 @@ plugins {
     id 'java-library'
 }
 
-ext.moduleName = 'stresser.generator.cpu'
-
-//sourceSets.main.java.srcDirs = ['src']
+//javaModule.name = 'stresser.generator.cpu'
