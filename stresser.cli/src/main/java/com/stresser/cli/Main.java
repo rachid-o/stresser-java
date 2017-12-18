@@ -8,7 +8,7 @@ public class Main {
         System.out.println("Starting stresser");
 
         CpuStresser cpuStresser = new CpuStresser();
-        cpuStresser.startStressing();
+        cpuStresser.start();
 
     }
 

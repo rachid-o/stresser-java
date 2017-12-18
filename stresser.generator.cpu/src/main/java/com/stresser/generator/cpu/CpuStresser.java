@@ -17,7 +17,7 @@ public class CpuStresser {
         return this.getClass().getSimpleName();
     }
 
-    public void startStressing() {
+    public void start() {
         println(getName() + " Start stressing the CPU");
         println(String.format("Start stressing CPU for %ds after waiting for %ds", timeout, delay));
 
