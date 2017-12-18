@@ -1,3 +1,4 @@
 
 include 'stresser.cli'
+include 'stresser.generator.api'
 include 'stresser.generator.cpu'
