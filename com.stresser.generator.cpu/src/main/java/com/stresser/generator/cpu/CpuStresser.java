@@ -1,5 +1,7 @@
 package com.stresser.generator.cpu;
 
+import com.stresser.generator.api.StressGenerator;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ExecutorService;
@@ -9,7 +11,7 @@ import java.util.stream.IntStream;
 
 import static java.lang.String.format;
 
-public class CpuStresser {
+public class CpuStresser implements StressGenerator {
 
     static final int timeout = 3;
     static final int delay = 0;
