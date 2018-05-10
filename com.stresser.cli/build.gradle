@@ -4,9 +4,9 @@ plugins {
 }
 
 dependencies {
-    compile project(':stresser.generator.cpu')
+    compile project(':com.stresser.generator.cpu')
 //    runtime project(':easytext.algorithm.coleman')
 }
 
-javaModule.name = 'stresser.cli'
+javaModule.name = 'com.stresser.cli'
 mainClassName = 'com.stresser.cli.Main'
