@@ -21,6 +21,7 @@ public class CpuStresser implements StressGenerator {
         return this.getClass().getSimpleName();
     }
 
+    @Override
     public void start() {
         println(getName() + " Start stressing the CPU");
         println(format("Start stressing CPU for %ds after waiting for %ds", timeout, delay));
