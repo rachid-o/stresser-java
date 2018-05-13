@@ -9,4 +9,4 @@ dependencies {
 }
 
 javaModule.name = 'com.stresser.cli'
-mainClassName = 'com.stresser.cli.Main'
+mainClassName = 'com.stresser.cli.CliStresser'

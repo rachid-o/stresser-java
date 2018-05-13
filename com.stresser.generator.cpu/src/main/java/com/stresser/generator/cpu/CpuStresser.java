@@ -13,44 +13,27 @@ import static java.lang.String.format;
 
 public class CpuStresser implements StressGenerator {
 
-    static final int timeout = 3;
-    static final int delay = 0;
+    private ExecutorService executor;
 
-
-    public String getName() {
+    String getName() {
         return this.getClass().getSimpleName();
     }
 
     @Override
     public void start() {
-        println(getName() + " Start stressing the CPU");
-        println(format("Start stressing CPU for %ds after waiting for %ds", timeout, delay));
-
-        try {
-            stress();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void stress() throws InterruptedException {
         int procsAvail = Runtime.getRuntime().availableProcessors();
+        executor = Executors.newFixedThreadPool(procsAvail);
 
         println(format("Create %d concurrent tasks", procsAvail));
-        ExecutorService executor = Executors.newFixedThreadPool(procsAvail);
         IntStream.range(0, procsAvail).forEach( it -> executor.submit(() -> {
             heavyTask();
         }));
+    }
 
-        if (!executor.awaitTermination(timeout, TimeUnit.SECONDS)) {
-            println("Terminate stressing");
-            executor.shutdownNow();
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
-                println("Could not terminate gracefully ");
-            }
-        }
+    @Override
+    public void stop() {
         executor.shutdownNow();
-        println("Finished.");
+        println("Stopped " + getName());
     }
 
     private void heavyTask() {
