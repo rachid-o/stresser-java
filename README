@@ -1,6 +1,14 @@
 
-# Create "runnable jar"
+## Run Stresser from sources
+Make sure that Java9 installed and used as default.
+```
+./gradlew run
+```
+
+
+## Create "runnable jar"
 
 ```
 ./gradlew distZip
 ```
+

@@ -7,12 +7,11 @@ import java.util.concurrent.TimeUnit;
 
 public class CliStresser {
 
-    static final int TIME_TO_RUN = 3;
+    static final int TIME_TO_RUN = 20;
 
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println(String.format("Running stresser for %d secs", TIME_TO_RUN));
-
 
         ServiceLoader<StressGenerator> loader = ServiceLoader.load(StressGenerator.class);
         if (!loader.iterator().hasNext()) {
