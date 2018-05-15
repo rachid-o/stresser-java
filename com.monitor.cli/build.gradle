@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+dependencies {
+//    implementation project(':com.stresser.generator.api')
+//    implementation project(':com.stresser.generator.cpu')
+}
+
+javaModule.name = 'com.monitor.cli'
+mainClassName = 'com.monitor.cli.CliMonitor'
