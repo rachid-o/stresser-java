@@ -10,3 +10,9 @@ subprojects {
         }
     }
 }
+
+sourceCompatibility = 1.10
+
+task runStresser(dependsOn: ['com.stresser.cli:run'])
+
+task runMonitor(dependsOn: ['com.monitor.cli:run'])

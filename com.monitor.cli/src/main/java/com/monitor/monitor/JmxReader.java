@@ -23,7 +23,6 @@ public class JmxReader {
 
     private final JMXServiceURL jmxUrl;
     private JMXConnector jmxConnector;
-    private MBeanServerConnection mbeanServerConnection;
     private OperatingSystemMXBean osMXBean;
     private ThreadMXBean threadMXBean;
     private MemoryMXBean memMXBean;
@@ -37,13 +36,47 @@ public class JmxReader {
         }
     }
 
-    private void connectWhenNeeded() {
+    public Map<String, String> read() {
+        Map<String, String> props = new HashMap<>();
+        if(!connectWhenNeeded()) {
+            return props;
+        }
+
+        try {
+            props.put("sysload", String.valueOf(round(osMXBean.getSystemLoadAverage())));
+            props.put("cpu-process", String.valueOf(round(peOSMXBean.getProcessCpuLoad() * 100)));
+            props.put("cpu-system", String.valueOf(round(peOSMXBean.getSystemCpuLoad() * 100)));
+            props.put("mem-heap", String.valueOf(round(memMXBean.getHeapMemoryUsage().getUsed() / MB )));
+            props.put("threads", String.valueOf(threadMXBean.getThreadCount()));
+        } catch (Exception  e) {
+            println("Something went wrong try to reconnect the next attempt");
+            reconnectNextRun();
+        }
+        return props;
+    }
+
+    private void reconnectNextRun() {
+        jmxConnector = null; // To reconnect on next run
+    }
+
+    static double round(double value) {
+        return BigDecimal.valueOf(value)
+                .setScale(1, RoundingMode.HALF_UP)
+                .doubleValue();
+    }
+
+
+    /**
+     *
+     * @return true when connection established, false otherwise
+     */
+    private boolean connectWhenNeeded() {
         if (jmxConnector != null) {
-            return;
+            return true;
         }
         try {
             jmxConnector = JMXConnectorFactory.connect(jmxUrl);
-            mbeanServerConnection = jmxConnector.getMBeanServerConnection();
+            var mbeanServerConnection = jmxConnector.getMBeanServerConnection();
 
             osMXBean = ManagementFactory.newPlatformMXBeanProxy(
                     mbeanServerConnection,
@@ -66,41 +99,12 @@ public class JmxReader {
                     ManagementFactory.OPERATING_SYSTEM_MXBEAN_NAME,
                     com.sun.management.OperatingSystemMXBean.class
             );
+            return true;
         } catch (IOException e) {
 //            println("Could not connect to: " + jmxUrl + " due to: " + e.getMessage());
             reconnectNextRun();
+            return false;
         }
-    }
-
-
-    public Map<String, String> read() {
-        connectWhenNeeded();
-        if(jmxConnector == null) {
-            return null;
-        }
-        Map<String, String> props = new HashMap<>();
-
-        try {
-            props.put("sysload", String.valueOf(round(osMXBean.getSystemLoadAverage())));
-            props.put("cpu-process", String.valueOf(round(peOSMXBean.getProcessCpuLoad() * 100)));
-            props.put("cpu-system", String.valueOf(round(peOSMXBean.getSystemCpuLoad() * 100)));
-            props.put("mem-heap", String.valueOf(round(memMXBean.getHeapMemoryUsage().getUsed() / MB )));
-            props.put("threads", String.valueOf(threadMXBean.getThreadCount()));
-        } catch (Exception  e) {
-            println("Something went wrong try to reconnect the next attempt");
-            reconnectNextRun();
-        }
-        return props;
-    }
-
-    private void reconnectNextRun() {
-        jmxConnector = null; // To reconnect on next run
-    }
-
-    static double round(double value) {
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(1, RoundingMode.HALF_UP);
-        return bd.doubleValue();
     }
 
     void println(Object message) {

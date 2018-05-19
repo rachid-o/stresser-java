@@ -14,7 +14,7 @@ public class CpuStresser implements StressGenerator {
 
     private ExecutorService executor;
 
-    String getName() {
+    private String getName() {
         return this.getClass().getSimpleName();
     }
 
@@ -26,9 +26,7 @@ public class CpuStresser implements StressGenerator {
 
         int procsToStress = half;
         println(format("Create %d concurrent tasks", procsToStress));
-        IntStream.range(0, procsToStress).forEach( it -> executor.submit(() -> {
-            heavyTask();
-        }));
+        IntStream.range(0, procsToStress).forEach( nr -> executor.submit(this::heavyTask));
     }
 
     @Override
@@ -41,6 +39,7 @@ public class CpuStresser implements StressGenerator {
         int millisToSleep = 3000;
         while (!Thread.currentThread().isInterrupted()) {
             fib(42);
+            System.out.print(".");
             try {
 //                println(format("Sleep for %d ms", millisToSleep));
                 Thread.sleep(millisToSleep);
@@ -62,7 +61,7 @@ public class CpuStresser implements StressGenerator {
         }
     }
 
-    static void println(String message) {
+    private static void println(String message) {
         String timestamp = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").format(ZonedDateTime.now());
         System.out.println(timestamp + " - " + message);
     }
