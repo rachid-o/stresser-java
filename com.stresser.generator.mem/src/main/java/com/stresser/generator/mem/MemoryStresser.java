@@ -1,4 +1,4 @@
-package com.stresser.generator.implementations.mem;
+package com.stresser.generator.mem;
 
 import com.stresser.generator.api.StressGenerator;
 
@@ -18,7 +18,7 @@ public class MemoryStresser implements StressGenerator {
     private static final int MB = 1024*KB;
     private static final int GB = 1024*MB;
 
-    private List<Long> memory;
+    private List<Long> memory = new LinkedList<>();
     private ExecutorService executor;
 
     @Override
@@ -31,8 +31,11 @@ public class MemoryStresser implements StressGenerator {
 
     @Override
     public void stop() {
-        printMemory();
-        executor.shutdownNow();
+        if(executor != null) {
+            printMemory();
+            executor.shutdownNow();
+        }
+        memory.clear();
         println("Stopped " + getClass().getSimpleName());
     }
 
@@ -50,10 +53,10 @@ public class MemoryStresser implements StressGenerator {
         println(String.format("Creating %d random Longs", amount));
         printMemory();
 //
-        memory = new LinkedList<>();
+
         Random r = new Random();
 //        byte[] b = new byte[KB];
-        int millisToSleep = 100;
+        int millisToSleep = 1000;
         for(long i=1; i<amount; i++) {
             memory.add(r.nextLong());
 

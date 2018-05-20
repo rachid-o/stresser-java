@@ -1,0 +1,10 @@
+plugins {
+    id 'java-library'
+}
+
+javaModule.name = 'com.stresser.generator.mem'
+
+dependencies {
+    api project(':com.stresser.generator.api')
+}
+

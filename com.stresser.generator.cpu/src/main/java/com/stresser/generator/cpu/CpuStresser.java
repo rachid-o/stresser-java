@@ -1,4 +1,4 @@
-package com.stresser.generator.implementations.cpu;
+package com.stresser.generator.cpu;
 
 import com.stresser.generator.api.StressGenerator;
 
@@ -31,7 +31,9 @@ public class CpuStresser implements StressGenerator {
 
     @Override
     public void stop() {
-        executor.shutdownNow();
+        if(executor != null) {
+            executor.shutdownNow();
+        }
         println("Stopped " + getName());
     }
 
