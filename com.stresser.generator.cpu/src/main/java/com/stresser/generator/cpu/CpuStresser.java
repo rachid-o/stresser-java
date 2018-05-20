@@ -22,9 +22,9 @@ public class CpuStresser implements StressGenerator {
     public void start() {
         int procsAvail = Runtime.getRuntime().availableProcessors();
         int half = Math.round(procsAvail / 2);
-        executor = Executors.newFixedThreadPool(half);
-
-        int procsToStress = half;
+//        int procsToStress = half;
+        int procsToStress = procsAvail;
+        executor = Executors.newFixedThreadPool(procsToStress);
         println(format("Create %d concurrent tasks", procsToStress));
         IntStream.range(0, procsToStress).forEach( nr -> executor.submit(this::heavyTask));
     }
@@ -38,7 +38,7 @@ public class CpuStresser implements StressGenerator {
     }
 
     private void heavyTask() {
-        int millisToSleep = 3000;
+        int millisToSleep = 1000;
         while (!Thread.currentThread().isInterrupted()) {
             fib(42);
             System.out.print(".");

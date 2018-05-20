@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+dependencies {
+    implementation project(':com.stresser.generator.api')
+    implementation project(':com.stresser.generator.cpu')
+    implementation project(':com.stresser.generator.mem')
+}
+
+
+javaModule.name = 'com.stresser.gui'
+mainClassName = 'com.stresser.gui.GuiStresser'
+
+
+tasks.withType(JavaExec) {
+    systemProperty "com.sun.management.jmxremote.port", 31337
+    systemProperty "com.sun.management.jmxremote.local.only", "false"
+    systemProperty "com.sun.management.jmxremote.authenticate", "false"
+    systemProperty "com.sun.management.jmxremote.ssl", false
+    doFirst() {
+        println "Starting GUI stresser with system properties: "
+        systemProperties.each{k, v -> println "\t $k -> $v"}
+    }
+}
