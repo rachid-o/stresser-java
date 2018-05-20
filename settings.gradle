@@ -1,5 +1,6 @@
 
 include 'com.monitor.cli'
 include 'com.stresser.cli'
+include 'com.stresser.gui'
 include 'com.stresser.generator.api'
-include 'com.stresser.generator.cpu'
+include 'com.stresser.generator.implementations'

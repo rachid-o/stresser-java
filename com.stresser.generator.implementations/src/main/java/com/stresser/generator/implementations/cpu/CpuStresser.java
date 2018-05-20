@@ -1,4 +1,4 @@
-package com.stresser.generator.cpu;
+package com.stresser.generator.implementations.cpu;
 
 import com.stresser.generator.api.StressGenerator;
 

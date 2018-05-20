@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
 //    implementation project(':com.stresser.generator.api')
-//    implementation project(':com.stresser.generator.cpu')
+//    implementation project(':com.stresser.generator.implementations')
 }
 
 javaModule.name = 'com.monitor.cli'

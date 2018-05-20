@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
 }
 
-javaModule.name = 'com.stresser.generator.cpu'
+javaModule.name = 'com.stresser.generator.implementations'
 
 dependencies {
     api project(':com.stresser.generator.api')

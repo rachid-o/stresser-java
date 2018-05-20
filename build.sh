@@ -8,7 +8,7 @@
 
 #javac -d out stresser.generator.cpu/src
 
-javac -d out --module-source-path stresser.generator.cpu/src:stresser.cli/src \
+javac -d out --module-source-path stresser.generator.implementations/src:stresser.cli/src \
  $(find stresser.cli/src -name *.java)
 
 
