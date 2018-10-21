@@ -15,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ServiceLoader;
 
 
@@ -55,6 +57,15 @@ public class GuiStresser extends Application {
             vbox.getChildren().add(hbox);
         }
 
+        Button btnGC= new Button("Run GC");
+        vbox.getChildren().add(btnGC);
+        btnGC.setOnAction( event -> {
+            println("Start of GC");
+            System.gc();
+            println("End of GC");
+
+        });
+
         BorderPane pane = new BorderPane();
         pane.setLeft(vbox);
         primaryStage.setScene(new Scene(pane, 300, 200));
@@ -70,9 +81,9 @@ public class GuiStresser extends Application {
 
     }
 
-    private String analyze(String input, String algorithm) {
-        return "";
+    static void println(Object message) {
+        String timestamp = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").format(ZonedDateTime.now());
+        System.out.println(timestamp + " - " + message);
     }
-
 
 }
