@@ -1,12 +1,13 @@
 
+Make sure that JDK 11+ is installed and used as default.
+
 ## Run Stresser from sources
-Make sure that Java 9+ installed and used as default.
+
 ```
 ./gradlew runStresser
 ```
 
 ## Run Monitor from sources
-Make sure that Java 9+ installed and used as default.
 ```
 ./gradlew runMonitor
 ```

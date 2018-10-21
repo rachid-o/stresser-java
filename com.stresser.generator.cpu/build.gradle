@@ -1,10 +1,4 @@
-plugins {
-    id 'java-library'
-}
-
-javaModule.name = 'com.stresser.generator.cpu'
-
 dependencies {
-    api project(':com.stresser.generator.api')
+    implementation project(':com.stresser.generator.api')
 }
 
