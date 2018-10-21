@@ -1,11 +1,5 @@
 plugins {
-    id 'java'
     id 'application'
 }
 
-dependencies {
-//    implementation project(':com.monitor')
-}
-
-javaModule.name = 'com.monitor.cli'
-mainClassName = 'com.monitor.cli.CliMonitor'
+mainClassName = "$moduleName/com.monitor.cli.CliMonitor"

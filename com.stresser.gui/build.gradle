@@ -1,18 +1,24 @@
 plugins {
-    id 'java'
     id 'application'
+//    id "com.google.osdetector" version "1.6.0"
 }
 
+//apply plugin: 'com.google.osdetector'
+//ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+//println("Current platform is: $platform")
+ext.platform = 'mac'
+
 dependencies {
+    implementation "org.openjfx:javafx-base:11:$platform"
+    implementation "org.openjfx:javafx-controls:11:$platform"
+    implementation "org.openjfx:javafx-graphics:11:$platform"
+//    implementation 'org.openjfx:javafx:11'
     implementation project(':com.stresser.generator.api')
     implementation project(':com.stresser.generator.cpu')
     implementation project(':com.stresser.generator.mem')
 }
 
-
-javaModule.name = 'com.stresser.gui'
-mainClassName = 'com.stresser.gui.GuiStresser'
-
+mainClassName = "$moduleName/com.stresser.gui.GuiStresser"
 
 tasks.withType(JavaExec) {
     systemProperty "com.sun.management.jmxremote.port", 31337

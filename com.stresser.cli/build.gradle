@@ -1,5 +1,4 @@
 plugins {
-    id 'java'
     id 'application'
 }
 
@@ -9,9 +8,7 @@ dependencies {
     implementation project(':com.stresser.generator.mem')
 }
 
-javaModule.name = 'com.stresser.cli'
-mainClassName = 'com.stresser.cli.CliStresser'
-
+mainClassName = "$moduleName/com.stresser.cli.CliStresser"
 
 tasks.withType(JavaExec) {
     systemProperty "com.sun.management.jmxremote.port", 31337
